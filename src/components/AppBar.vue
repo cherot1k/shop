@@ -14,18 +14,19 @@
           width="40"
       />
 
-      <h1>App</h1>
+      <h1> Lion Inc.</h1>
     </div>
 
     <v-spacer></v-spacer>
 
-    <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-    >
-      <span class="mr-2">Who we are</span>
-      <v-icon>mdi-open-in-new</v-icon>
-    </v-btn>
+    <AboutUs/>
   </v-app-bar>
 </template>
+<script>
+import AboutUs from '@/components/AboutUs'
+export default {
+  components:{
+    AboutUs
+  }
+}
+</script>

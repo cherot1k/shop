@@ -11,13 +11,6 @@ export default new Vuex.Store({
   },
   mutations: {
     ADDITEM(state,item) {
-      let includes = false
-      for(let val of state.basket){
-        if(val.code === item.code){
-          includes = true
-        }
-      }
-      if(!includes){
         state.basket.push(item)
         let number = (item.price * state.dollar)/100
         if(number - Math.trunc(number) < 0.5 && number - Math.trunc(number) !== 0){
@@ -28,7 +21,7 @@ export default new Vuex.Store({
           number = (number*100)
         }
         state.totalPrice += number
-      }
+
     },
     REMOVEITEM(state,item) {
       state.basket =  state.basket.filter(i => i.code !== item.code)
@@ -38,6 +31,8 @@ export default new Vuex.Store({
         if(item.code === object.code){
           item.howMany = item.howMany + object.howMany
           return item
+        }else{
+          return item
         }
       })
     },
@@ -46,6 +41,15 @@ export default new Vuex.Store({
     },
     CHANGETOTALPRICE(state,money){
       state.totalPrice += parseInt( money)
+    },
+    GETITEMBYCODE(state,code){
+      return  state.basket.reduce((accumulator, currentValue, currentIndex, array) => {
+        if(accumulator.code === code){
+          return accumulator
+        }else{
+          return currentValue
+        }
+      })
     }
   },
   actions: {

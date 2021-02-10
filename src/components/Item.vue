@@ -1,18 +1,19 @@
 <template>
-  <v-row class="col-12">
+  <v-row class="col-12 addBorder">
     <v-row class="col-12 ma-2">
       <v-img max-height="100px" max-width="100px" :src="currentItem.url"></v-img>
-      <div class="mt-2 ml-2"> {{currentItem.name}} </div>
+      <div class="mt-2 ml-2"> {{currentItem.name}} {{currentItem.code}} </div>
       <v-spacer/>
       <v-btn
           icon
           dark
           color="black"
+          @click="removeItem(currentItem.code)"
       >
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-row>
-    <v-row justify="end col-12 ma-2">
+    <v-row justify="end" class="col-12 ma-2">
       <v-btn icon @click.prevent="increment()">
         <v-icon> mdi-plus </v-icon>
       </v-btn>
@@ -73,10 +74,15 @@ export default {
         this.val--
         this.$store.commit('CHANGETOTALPRICE', (0- this.price))
       }
+    },
+    removeItem(code){
+       this.$store.commit('CHANGETOTALPRICE', (0 - (this.price* this.val)))
+       this.$store.dispatch('removeItem', {code})
     }
   },
-  mounted() {
-    this.val = this.$store.getters.basket.filter(item => item.code = this.currentItem.code)[0].howMany
+  async mounted() {
+    let res = await this.$store.commit('GETITEMBYCODE',this.currentItem.code)
+    this.val = res.howMany
   }
 
 }
@@ -84,5 +90,9 @@ export default {
 <style scoped>
 .itemPrice{
   font: 30px Arial;
+}
+.addBorder{
+  border: 1px solid black;
+  border-radius: 20px;
 }
 </style>

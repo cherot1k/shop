@@ -7,6 +7,7 @@
         <span class="mb-5">Ширина внешней стороны:</span>
       </div>
         <v-checkbox
+            style="max-height: 30px"
             v-for="item in inner_Width"
             :label="item"
             v-model = "selected_inner_width"
@@ -17,6 +18,7 @@
         <span>Ширина внутренней стороны:</span>
       </div>
       <v-checkbox
+        style="max-height: 30px"
         v-for="item in outer_width"
         :label="item"
         v-model="selected_outer_width"
@@ -28,6 +30,7 @@
         <span>Высота внутренней стороны:</span>
       </div>
       <v-checkbox
+          style="max-height: 30px"
           v-for="item in inner_height"
           :label="item"
           v-model="selected_inner_height"
@@ -39,6 +42,7 @@
         <span>Высота внешней стороны стороны:</span>
       </div>
       <v-checkbox
+          style="max-height: 30px"
           v-for="item in outer_height"
           :label="item"
           v-model="selected_outer_height"
@@ -50,6 +54,7 @@
         <span>Материал:</span>
       </div>
       <v-checkbox
+          style="max-height: 30px"
           v-for="item in materials"
           :label="item"
           v-model="selected_materials"
@@ -62,6 +67,7 @@
         <span>Зеркало:</span>
       </div>
       <v-checkbox
+          style="max-height: 30px"
           v-for="item in mirror"
           :label="item"
           v-model="selected_mirror"
@@ -77,6 +83,9 @@
         <div class="" v-for="item in filteredItems">
           <HomeItem :item="item"></HomeItem>
         </div>
+      </v-row>
+      <v-row class="col-12" justify="center" v-show="!filteredItems.length">
+        <h1>На данный момент нет предметов </h1>
       </v-row>
     </div>
 </v-row>
@@ -102,7 +111,21 @@ export default {
             ref.getDownloadURL().then(thing => {
               item.url = thing
               console.log(item)
-              items.push(item)
+              const {code, mirror, description, images, innerHeight, innerWidth, material, name, outerHeight, outerWidth, price, url} = item
+              items.push({
+                code,
+                mirror,
+                description,
+                images,
+                innerHeight,
+                innerWidth,
+                material,
+                name,
+                outerHeight,
+                outerWidth,
+                price,
+                url
+              })
             })
           }
       )
@@ -178,5 +201,8 @@ export default {
 }
   .bg_blue{
     position: fixed;
+    border: 1px solid black;
+  }
+  .v-input__control{
   }
 </style>

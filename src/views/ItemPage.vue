@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <v-container  class="cont" >
+  <div class="about mt-12">
+    <v-container  class="cont " >
       <v-divider></v-divider>
       <v-row class="col-12 d-inline-flex ma-4">
         <div class="col-5" >
@@ -11,9 +11,9 @@
                 :src="item"
             ></v-carousel-item>
           </v-carousel>
-          <v-row class="mt-10">
-            <div class="grey--text">{{item.description}}</div>
-          </v-row>
+<!--          <v-row class="mt-10">-->
+<!--            <div class="grey&#45;&#45;text">{{item.description}}</div>-->
+<!--          </v-row>-->
         </div>
         <div class="col-7" >
           <v-row justify="center">
@@ -36,16 +36,20 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-6 ">
+              <div class="col-6 mt-3 needFont">
                 <v-row class="col-12 mt-4" >
-                  <v-btn class="buyBtn col-6" @click="addToBasket" large>
+                  <v-btn class="buyBtn col-6" @click="addToBasket" large v-show="!isInBasket">
                     <v-icon left>mdi-basket-plus</v-icon>
                     <span class="cart"> В корзину </span>
+                  </v-btn>
+                  <v-btn class="disBtn col-6" disabled large v-show="isInBasket">
+                    <v-icon left>mdi-cart-check</v-icon>
+                    <span class="cart"> Товар в корзине </span>
                   </v-btn>
                 </v-row>
                 <div class="mt-5">
                   <div class="">Доставка:</div>
-                  <div class="mt-5">
+                  <div class="">
                     <ul>
                       <li>Новая Почта</li>
                       <li>Забрать с фирменного магазина</li>
@@ -55,6 +59,9 @@
                 </div>
               </div>
             </v-row>
+          </v-row>
+          <v-row class="col-12 mt-2">
+            <div class="grey--text">{{item.description}}</div>
           </v-row>
         </div>
       </v-row>
@@ -86,8 +93,9 @@ export default {
   },
   methods:{
     async addToBasket(){
+      const {code, mirror, description, images, innerHeight, innerWidth, material, name, outerHeight, outerWidth, price, url} = this.item
       this.item.howMany = 1
-      await this.$store.dispatch('addItem', this.item)
+      await this.$store.commit('ADDITEM', {code, mirror, description, images, innerHeight, innerWidth, material, name, outerHeight, outerWidth, price, url, howMany: 1})
       // this.$store.commit('CHANGETOTALPRICE', this.price)
     }
   },
@@ -101,6 +109,12 @@ export default {
       }else{
         return (number*100)
       }
+    },
+    basket(){
+      return this.$store.getters.basket
+    },
+    isInBasket(){
+      return  this.$store.getters.basket.filter( item => item.code === this.item.code).length === 1
     }
   }
 }
@@ -118,6 +132,12 @@ export default {
 .buyBtn{
   font-weight: bold;
   font: 18px/30px WebServeroff;
+  min-width: 150px !important;
+}
+.disBtn{
+  font-weight: bold;
+  font: 18px/30px WebServeroff;
+  min-width: 220px !important;
 }
 .cart{
   color: blue;
@@ -126,5 +146,8 @@ export default {
 }
 ul{
   list-style: none;
+}
+.about{
+  margin-top: 7% !important;
 }
 </style>
