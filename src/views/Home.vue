@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="col-12 ma-4">
-<!--      <NavBar/>-->
+      <!--      <NavBar/>-->
       <v-col>
         <HelloWorld msg="Welcome to Your Vue.js App"/>
       </v-col>
@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import HelloWorld from '@/components/MainPageComponent.vue'
-import NavBar from '@/components/NavBar'
+import HelloWorld from '../components/MainPageComponent.vue'
+import NavBar from '../components/NavBar'
 export default {
   name: 'Home',
   components: {
@@ -25,10 +25,10 @@ export default {
 </script>
 
 <style scoped>
-/*.toFix{*/
-/*  position: fixed;*/
-/*  right: 10%;*/
-/*  top: 15%;*/
-/*  z-index: 2;*/
-/*}*/
+.toFix{
+  position: fixed;
+  right: 10%;
+  top: 15%;
+  z-index: 2;
+}
 </style>

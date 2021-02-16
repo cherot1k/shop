@@ -1,17 +1,15 @@
 <template>
   <v-app>
     <AppBar/>
-    <v-row class="col-12">
-      <v-col>
-        <Basket/>
+    <v-main>
+      <Basket/>
         <router-view></router-view>
-      </v-col>
-    </v-row>
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/MainPageComponent';
+import HelloWorld from './components/HelloWorld';
 import Basket from './components/Basket'
 import AppBar from './components/AppBar'
 export default {

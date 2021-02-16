@@ -15,5 +15,9 @@ npm run serve
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+###Project screens
+
+![Home page](photoes/screen_1.png)
+![Item page](photoes/screen_2.png)
+![Basket modal](photoes/screen_3.png)
+![Check page](photoes/screen_4.png)

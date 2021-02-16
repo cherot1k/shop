@@ -5,40 +5,40 @@
         <h1>Оформление заказа:</h1>
       </v-row>
       <v-form v-model="valid">
-      <v-row class="ma-5 mt-12">
-        <v-text-field
-            class="col-5 ma-2"
-            label="Фамилия"
-            outlined
-            :rules="surnameRules"
-            v-model="surname"
-        ></v-text-field>
-        <v-text-field
-            class="col-5 ma-2"
-            label="Имя"
-            outlined
-            :rules="nameRules"
-            v-model="name"
-        ></v-text-field>
-        <v-text-field
-            class="col-5 ma-2"
-            label="Номер телефона"
-            outlined
-            :rules="phoneRules"
-            v-model="phone"
-        ></v-text-field>
-        <v-autocomplete
-            class="col-5 ma-2"
-            label="Город"
-            outlined
-            v-model="val"
-            :items="cities"
-            :search-input.sync="city"
-            cache-items
-            :rules="cityRules"
-            no-data-text="Введите название города"
-        ></v-autocomplete>
-      </v-row>
+        <v-row class="ma-5 mt-12">
+          <v-text-field
+              class="col-5 ma-2"
+              label="Фамилия"
+              outlined
+              :rules="surnameRules"
+              v-model="surname"
+          ></v-text-field>
+          <v-text-field
+              class="col-5 ma-2"
+              label="Имя"
+              outlined
+              :rules="nameRules"
+              v-model="name"
+          ></v-text-field>
+          <v-text-field
+              class="col-5 ma-2"
+              label="Номер телефона"
+              outlined
+              :rules="phoneRules"
+              v-model="phone"
+          ></v-text-field>
+          <v-autocomplete
+              class="col-5 ma-2"
+              label="Город"
+              outlined
+              v-model="val"
+              :items="cities"
+              :search-input.sync="city"
+              cache-items
+              :rules="cityRules"
+              no-data-text="Введите название города"
+          ></v-autocomplete>
+        </v-row>
       </v-form>
       <v-row class="mt-5 col-12">
         <v-row class="mt-3 col-12 CoolFont">
@@ -157,7 +157,7 @@
 
 <script>
 import emailjs from 'emailjs-com'
-import CheckItem from '@/components/CheckItem'
+import CheckItem from '../components/CheckItem'
 export default {
   components:{
     CheckItem
@@ -190,30 +190,30 @@ export default {
     validDelivery:false,
 
     nameRules:[
-        v => !!v || 'Это поле обязательно к заполнению',
-        v => /^[A-ZА-Яa-zа-я]+$/.test(v) || 'Имя не должно содержать цифры'
+      v => !!v || 'Это поле обязательно к заполнению',
+      v => /^[A-ZА-Яa-zа-я]+$/.test(v) || 'Имя не должно содержать цифры'
     ],
     surnameRules:[
       v => !!v || 'Это поле обязательно к заполнению',
       v => /^[A-ZА-Яa-zа-я]+$/.test(v) || 'Фамилия не должна содержать цифры'
     ],
     phoneRules:[
-        v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{6}$/im.test(v) || 'Телефон введен неправильно',
-        v => !!v || 'Это поле обязательно к заполнению'
+      v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{6}$/im.test(v) || 'Телефон введен неправильно',
+      v => !!v || 'Это поле обязательно к заполнению'
     ],
     cityRules:[
-        v => !!v || 'Город необходим'
+      v => !!v || 'Город необходим'
     ],
     allRules:[
-        v => !!v || 'Это поле обязательно к заполнению'
+      v => !!v || 'Это поле обязательно к заполнению'
     ],
 
   }),
   methods:{
     //TODO вынести логику
-     getCities: async function(city) {
-        const self = this
-        const raw = JSON.stringify({
+    getCities: async function(city) {
+      const self = this
+      const raw = JSON.stringify({
         "modelName":"Address",
         "calledMethod":"getCities",
         "methodProperties":{
@@ -229,22 +229,22 @@ export default {
       };
       let array = []
       const responce = await fetch("https://api.novaposhta.ua/v2.0/json/", requestOptions).then(response => response.json())
-       await responce.data.forEach(item => {
-         array.push(item.DescriptionRu.replace(/\([^)]+\)/,"")+ " (" + item.AreaDescriptionRu + " область)")
-       })
-       self.cities = array
+      await responce.data.forEach(item => {
+        array.push(item.DescriptionRu.replace(/\([^)]+\)/,"")+ " (" + item.AreaDescriptionRu + " область)")
+      })
+      self.cities = array
     },
     getWarehouses :async function (city) {
-       const self = this
-       const raw = JSON.stringify({
-         "modelName": "AddressGeneral",
-         "calledMethod": "getWarehouses",
-         "methodProperties": {
-           "Language": "ru",
-           "CityName": city
-         },
-         "apiKey":"c423454d5ee842c458f33615f55fe743"
-       })
+      const self = this
+      const raw = JSON.stringify({
+        "modelName": "AddressGeneral",
+        "calledMethod": "getWarehouses",
+        "methodProperties": {
+          "Language": "ru",
+          "CityName": city
+        },
+        "apiKey":"c423454d5ee842c458f33615f55fe743"
+      })
       const requestOptions = {
         method: 'POST',
         body: raw,
@@ -259,46 +259,46 @@ export default {
       self.buildsearch = array
     },
     sendMail(){
-       if(this.valid){
-         let codes = ''
-         this.items.forEach(item => {
-           codes += `Товар под кодом ${item.code} в размере ${item.howMany} штук \n`
-         })
+      if(this.valid){
+        let codes = ''
+        this.items.forEach(item => {
+          codes += `Товар под кодом ${item.code} в размере ${item.howMany} штук \n`
+        })
 
-         let my_obj = {
-             name: this.name,
-             surname:this.surname,
-             phone: this.phone,
-             codes
-         }
+        let my_obj = {
+          name: this.name,
+          surname:this.surname,
+          phone: this.phone,
+          codes
+        }
 
-         if(this.selected === 'Самовывоз'){
-           if(this.branch){
-             my_obj = Object.assign(my_obj,{
-               typeOfDelivery: 'Самовывоз из отеделения новой почты',
-               deliveryData: `г.${this.city} ${this.branch}`
-             })
-             emailjs.send('service_s0yi3o8','template_ic0abrn',my_obj, 'user_7laPrN7hFZSJyaUiLnv0T')
-             this.success = true
-           }else {
-             this.snackbar = true
-           }
-         }
-         else {
-           if(this.validDelivery){
-             my_obj = Object.assign(my_obj,{
-               typeOfDelivery: 'Доставка куръером',
-               deliveryData: `г.${this.city} ул.${this.street} д.${this.house} кв.${this.apartment}`
-             })
-             emailjs.send('service_s0yi3o8','template_ic0abrn',my_obj, 'user_7laPrN7hFZSJyaUiLnv0T')
-             this.success = true
-           }else {
-             this.snackbar = true
-           }
-         }
-       }else {
-         this.snackbar = true
-       }
+        if(this.selected === 'Самовывоз'){
+          if(this.branch){
+            my_obj = Object.assign(my_obj,{
+              typeOfDelivery: 'Самовывоз из отеделения новой почты',
+              deliveryData: `г.${this.city} ${this.branch}`
+            })
+            emailjs.send('service_s0yi3o8','template_ic0abrn',my_obj, 'user_7laPrN7hFZSJyaUiLnv0T')
+            this.success = true
+          }else {
+            this.snackbar = true
+          }
+        }
+        else {
+          if(this.validDelivery){
+            my_obj = Object.assign(my_obj,{
+              typeOfDelivery: 'Доставка куръером',
+              deliveryData: `г.${this.city} ул.${this.street} д.${this.house} кв.${this.apartment}`
+            })
+            emailjs.send('service_s0yi3o8','template_ic0abrn',my_obj, 'user_7laPrN7hFZSJyaUiLnv0T')
+            this.success = true
+          }else {
+            this.snackbar = true
+          }
+        }
+      }else {
+        this.snackbar = true
+      }
     }
   },
   computed:{

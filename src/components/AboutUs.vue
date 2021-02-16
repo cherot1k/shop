@@ -9,7 +9,7 @@
           v-bind="attrs"
           v-on="on"
       >
-        <span class="mr-2">Who we are</span>
+        <span class="mr-2">Кто мы</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </template>
@@ -20,7 +20,7 @@
             dark
         >О нас</v-toolbar>
         <v-card-text class="card_text">
-          <div class="ma-4"> Мы простая Винницкая компания которая под видом продажи рамок пихает кокс, это и есть основная причина дороговизны наших рамок, так то они стоят 20 гривен на базаре. </div>
+          <div class="ma-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto autem consectetur cumque, deleniti deserunt dolor, eligendi error eum hic itaque labore minus necessitatibus nisi numquam provident quibusdam saepe temporibus vitae! </div>
           <div class="ma-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto autem consectetur cumque, deleniti deserunt dolor, eligendi error eum hic itaque labore minus necessitatibus nisi numquam provident quibusdam saepe temporibus vitae!</div>
         </v-card-text>
         <v-card-actions class="justify-end">
