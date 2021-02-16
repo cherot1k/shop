@@ -74,6 +74,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
+import {checkPrice} from "@/functions/price"
 export default {
   async mounted() {
     let code = this.$route.path.replace('/','')
@@ -84,7 +85,6 @@ export default {
     }
     item.url = await firebase.storage().refFromURL(item.url).getDownloadURL()
     this.item = item
-    console.log(item)
   },
   data  () {
     return {
@@ -101,14 +101,7 @@ export default {
   },
   computed:{
     price(){
-      let number = (this.item.price * this.$store.state.dollar)/100
-      if(number - Math.trunc(number) < 0.5 && number - Math.trunc(number) !== 0){
-        return (Math.trunc(number) * 100 + 50)
-      }else if(number - Math.trunc(number) > 0.5){
-        return (Math.trunc(number) * 100 + 100)
-      }else{
-        return (number*100)
-      }
+      return checkPrice(this.item, this.$store.state.dollar)
     },
     basket(){
       return this.$store.getters.basket

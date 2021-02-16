@@ -1,5 +1,5 @@
 <template>
-  <v-row class="toFix">
+  <v-row class="toFix" style="">
     <div class="badge"  v-if="this.$route.path !== '/checkout'" v-show="basket.length > 0"> {{basket.length}} </div>
     <v-spacer/>
     <v-dialog
@@ -27,7 +27,7 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Корзина:</span>
+          <span class="headline">Корзина: </span>
           <v-spacer/>
           <v-btn
               icon
@@ -42,8 +42,8 @@
         <v-card-text>
           <v-container>
             <v-row class="col-11 mx-auto mb-12">
-              <v-row class="item col-12 ma-2" v-for="(item,id) in basket" :key="id">
-                <Item   class="col-12 "  :item="item" />
+              <v-row class="item col-12 ma-2"  >
+                <Item class="col-12 my-3" v-for="item in array" :item="item" @render="rerender" :key="item.id"/>
               </v-row>
             </v-row>
             <v-row class="col-12 groupButt mb-5" style="height: 70px">
@@ -67,7 +67,6 @@
 
 <script>
 import Item from "@/components/Item";
-import {mapState} from 'vuex'
 export default {
   name:'Basket',
   components:{
@@ -75,28 +74,36 @@ export default {
   },
   data: () => ({
     dialog: false,
-    allTheValue: 0
+    allTheValue: 0,
+    array: []
   }),
 
   computed:{
-    // basket(){
-    //   return this.$store.getters.basket
-    // },
+    basket(){
+      return this.$store.getters.basket
+    },
     totalPrice(){
       return this.$store.getters.totalPrice
     },
-    ...mapState([
-      'basket',
-    ]),
+
   },
   methods:{
     redirect(){
       this.$router.push('/checkout')
     },
     rerender(){
+      console.log('Me works')
       this.$forceUpdate();
-    }
+    },
   },
+  watch:{
+    basket: function (){
+      this.array = []
+      setTimeout(()=> {
+        this.array = this.$store.getters.basket
+          },10)
+    }
+  }
 }
 </script>
 
@@ -114,9 +121,6 @@ export default {
 }
 .price{
   font: 50px Arial;
-}
-.itemPrice{
-  font: 30px Arial;
 }
 .val{
   font: 30px Arial;

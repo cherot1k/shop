@@ -36,6 +36,7 @@
             :search-input.sync="city"
             cache-items
             :rules="cityRules"
+            no-data-text="Введите название города"
         ></v-autocomplete>
       </v-row>
       </v-form>
@@ -47,7 +48,7 @@
           <v-row class="col-12" >
             <v-divider class="col-12"></v-divider>
           </v-row>
-          <v-row class="col-12 ma-4" style="border: 1px solid black; border-radius: 20px " v-for="item in items">
+          <v-row class="col-12 mr-12 items my-5" style="border: 1px solid black; border-radius: 20px " v-for="item in items">
             <CheckItem :item="item" />
           </v-row>
           <v-row class="col-12">
@@ -74,6 +75,9 @@
                   <v-select
                       :items="buildsearch"
                       v-model="branch"
+                      label="Отделение"
+                      hide-details="true"
+                      no-data-text="Сначала выберите город"
                   ></v-select>
                 </v-row>
               </v-row>
@@ -96,7 +100,7 @@
         </v-row>
       </v-row>
 
-      <v-row class="col-12 addBorder my-5"  >
+      <v-row class="items col-12 addBorder my-5 mr-12"  >
         <v-col class="col-8">
           <h2>Итого:</h2>
         </v-col>
@@ -152,7 +156,7 @@
 </template>
 
 <script>
-import emailjs from 'emailjs-com';
+import emailjs from 'emailjs-com'
 import CheckItem from '@/components/CheckItem'
 export default {
   components:{
@@ -187,11 +191,11 @@ export default {
 
     nameRules:[
         v => !!v || 'Это поле обязательно к заполнению',
-        v => /^[A-Za-z]+$/.test(v) || 'Имя не должно содержать цифры'
+        v => /^[A-ZА-Яa-zа-я]+$/.test(v) || 'Имя не должно содержать цифры'
     ],
     surnameRules:[
       v => !!v || 'Это поле обязательно к заполнению',
-      v => /^[A-Za-z]+$/.test(v) || 'Фамилия не должна содержать цифры'
+      v => /^[A-ZА-Яa-zа-я]+$/.test(v) || 'Фамилия не должна содержать цифры'
     ],
     phoneRules:[
         v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{6}$/im.test(v) || 'Телефон введен неправильно',
@@ -206,9 +210,10 @@ export default {
 
   }),
   methods:{
+    //TODO вынести логику
      getCities: async function(city) {
-       const self = this
-      const raw = JSON.stringify({
+        const self = this
+        const raw = JSON.stringify({
         "modelName":"Address",
         "calledMethod":"getCities",
         "methodProperties":{
@@ -224,10 +229,8 @@ export default {
       };
       let array = []
       const responce = await fetch("https://api.novaposhta.ua/v2.0/json/", requestOptions).then(response => response.json())
-       console.log(responce.data)
        await responce.data.forEach(item => {
          array.push(item.DescriptionRu.replace(/\([^)]+\)/,"")+ " (" + item.AreaDescriptionRu + " область)")
-         console.log(item.DescriptionRu + ": " + item.Ref)
        })
        self.cities = array
     },
@@ -253,7 +256,6 @@ export default {
           array.push(item.DescriptionRu)
         }
       })
-      console.log(array)
       self.buildsearch = array
     },
     sendMail(){
@@ -343,5 +345,8 @@ export default {
 }
 .money{
   font: 1.3rem Arial;
+}
+.items{
+  max-width: 1075px!important;
 }
 </style>

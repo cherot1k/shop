@@ -14,7 +14,7 @@
           width="40"
       />
 
-      <h1> Lion Inc.</h1>
+      <h1 @click="redirect"> Lion Inc.</h1>
     </div>
 
     <v-spacer></v-spacer>
@@ -27,6 +27,11 @@ import AboutUs from '@/components/AboutUs'
 export default {
   components:{
     AboutUs
+  },
+  methods:{
+    redirect(){
+      this.$router.push('/')
+    }
   }
 }
 </script>

@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import {checkPrice} from "@/functions/price"
 export default {
   props:{
     item: {
@@ -44,14 +45,15 @@ export default {
   },
   computed:{
     price(){
-      let number = (this.item.price * this.$store.state.dollar)/100
-      if(number - Math.trunc(number) < 0.5 && number - Math.trunc(number) !== 0){
-        return (Math.trunc(number) * 100 + 50)
-      }else if(number - Math.trunc(number) > 0.5){
-        return (Math.trunc(number) * 100 + 100)
-      }else{
-        return (number*100);
-      }
+      // let number = (this.item.price * this.$store.state.dollar)/100
+      // if(number - Math.trunc(number) < 0.5 && number - Math.trunc(number) !== 0){
+      //   return (Math.trunc(number) * 100 + 50)
+      // }else if(number - Math.trunc(number) > 0.5){
+      //   return (Math.trunc(number) * 100 + 100)
+      // }else{
+      //   return (number*100);
+      // }
+      return checkPrice(this.item, this.$store.state.dollar)
     }
   }
 }

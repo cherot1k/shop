@@ -1,86 +1,84 @@
 <template>
 <v-row class="ma-12 d-flex col-12" >
-  <div class=" col-12 col-md-2 mx-2">
-  </div>
-    <div class="bg_blue col-12 col-md-2 mx-2">
-      <div class="">
-        <span class="mb-5">Ширина внешней стороны:</span>
-      </div>
-        <v-checkbox
-            style="max-height: 30px"
-            v-for="item in inner_Width"
-            :label="item"
-            v-model = "selected_inner_width"
-            :value = "item"
-        ></v-checkbox>
+ <NavBar class="navbar"/>
+<!--    <div class="bg_blue col-2 mx-2">-->
+<!--      <div class="mt-3">-->
+<!--        <span class="mb-5">Ширина внешней стороны:</span>-->
+<!--      </div>-->
+<!--        <v-checkbox-->
+<!--            style="max-height: 30px"-->
+<!--            v-for="item in inner_Width"-->
+<!--            :label="item"-->
+<!--            v-model = "selected_inner_width"-->
+<!--            :value = "item"-->
+<!--        ></v-checkbox>-->
 
-      <div class="">
-        <span>Ширина внутренней стороны:</span>
-      </div>
-      <v-checkbox
-        style="max-height: 30px"
-        v-for="item in outer_width"
-        :label="item"
-        v-model="selected_outer_width"
-        :value="item"
-      >
-      </v-checkbox>
+<!--      <div class="mt-3">-->
+<!--        <span>Ширина внутренней стороны:</span>-->
+<!--      </div>-->
+<!--      <v-checkbox-->
+<!--        style="max-height: 30px"-->
+<!--        v-for="item in outer_width"-->
+<!--        :label="item"-->
+<!--        v-model="selected_outer_width"-->
+<!--        :value="item"-->
+<!--      >-->
+<!--      </v-checkbox>-->
 
-      <div class="">
-        <span>Высота внутренней стороны:</span>
-      </div>
-      <v-checkbox
-          style="max-height: 30px"
-          v-for="item in inner_height"
-          :label="item"
-          v-model="selected_inner_height"
-          :value="item"
-      >
-      </v-checkbox>
+<!--      <div class="mt-3">-->
+<!--        <span>Высота внутренней стороны:</span>-->
+<!--      </div>-->
+<!--      <v-checkbox-->
+<!--          style="max-height: 30px"-->
+<!--          v-for="item in inner_height"-->
+<!--          :label="item"-->
+<!--          v-model="selected_inner_height"-->
+<!--          :value="item"-->
+<!--      >-->
+<!--      </v-checkbox>-->
 
-      <div class="">
-        <span>Высота внешней стороны стороны:</span>
-      </div>
-      <v-checkbox
-          style="max-height: 30px"
-          v-for="item in outer_height"
-          :label="item"
-          v-model="selected_outer_height"
-          :value="item"
-      >
-      </v-checkbox>
+<!--      <div class="mt-3">-->
+<!--        <span>Высота внешней стороны стороны:</span>-->
+<!--      </div>-->
+<!--      <v-checkbox-->
+<!--          style="max-height: 30px"-->
+<!--          v-for="item in outer_height"-->
+<!--          :label="item"-->
+<!--          v-model="selected_outer_height"-->
+<!--          :value="item"-->
+<!--      >-->
+<!--      </v-checkbox>-->
 
-      <div class="">
-        <span>Материал:</span>
-      </div>
-      <v-checkbox
-          style="max-height: 30px"
-          v-for="item in materials"
-          :label="item"
-          v-model="selected_materials"
-          :value="item"
-      >
-      </v-checkbox>
+<!--      <div class="mt-3">-->
+<!--        <span>Материал:</span>-->
+<!--      </div>-->
+<!--      <v-checkbox-->
+<!--          style="max-height: 30px"-->
+<!--          v-for="item in materials"-->
+<!--          :label="item"-->
+<!--          v-model="selected_materials"-->
+<!--          :value="item"-->
+<!--      >-->
+<!--      </v-checkbox>-->
 
 
-      <div class="">
-        <span>Зеркало:</span>
-      </div>
-      <v-checkbox
-          style="max-height: 30px"
-          v-for="item in mirror"
-          :label="item"
-          v-model="selected_mirror"
-          :value="item"
-      >
-      </v-checkbox>
+<!--      <div class="mt-3">-->
+<!--        <span>Зеркало:</span>-->
+<!--      </div>-->
+<!--      <v-checkbox-->
+<!--          style="max-height: 30px"-->
+<!--          v-for="item in mirror"-->
+<!--          :label="item"-->
+<!--          v-model="selected_mirror"-->
+<!--          :value="item"-->
+<!--      >-->
+<!--      </v-checkbox>-->
 
-    </div>
+<!--    </div>-->
 
-<!--  items заменено на filteredItems-->
-    <div class="bg_red  col-12 col-md-9 mx-2">
+    <div class="bg_red   col-8 mx-2">
       <v-row justify="center">
-        <div class="" v-for="item in filteredItems">
+        <div class="" v-for="item in filteredItems" :key="item.id">
           <HomeItem :item="item"></HomeItem>
         </div>
       </v-row>
@@ -96,12 +94,15 @@ import HomeItem from "@/components/HomeItem";
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
+import NavBar from "@/components/NavBar";
 
 export default {
     name: 'HelloWorld',
     components:{
+      NavBar,
       HomeItem
     },
+  // TODO вынести логику(возможно в стор)
     async mounted() {
       let items = []
       const res = await firebase.firestore().collection('items').get()
@@ -110,7 +111,6 @@ export default {
             const ref =  firebase.storage().refFromURL(item.url)
             ref.getDownloadURL().then(thing => {
               item.url = thing
-              console.log(item)
               const {code, mirror, description, images, innerHeight, innerWidth, material, name, outerHeight, outerWidth, price, url} = item
               items.push({
                 code,
@@ -163,7 +163,6 @@ export default {
       filteredItems(){
         let oldItems = this.items
         let filteredArray = []
-        // возможно для проверки надо использовать === true
         if(this.selected_inner_width.length){
           filteredArray = oldItems.filter(item => this.selected_inner_width.includes(item.innerWidth))
         }else{
@@ -200,9 +199,17 @@ export default {
   margin-top: 0 !important;
 }
   .bg_blue{
-    position: fixed;
+    top: 8%;
+    position: sticky;
     border: 1px solid black;
+    border-radius: 20px;
+    overflow: hidden;
+    min-width: 200px;
+    z-index: 2;
+    max-height: 600px;
   }
-  .v-input__control{
+  .navbar{
+    position: sticky !important;
+    top: 10% !important;
   }
 </style>
