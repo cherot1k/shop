@@ -7,7 +7,9 @@ export default new Vuex.Store({
   state: {
     basket:[],
     dollar: null,
-    totalPrice: 0
+    totalPrice: 0,
+    items: [],
+    selectedItems:[]
   },
   mutations: {
     ADDITEM(state,item) {
@@ -50,6 +52,12 @@ export default new Vuex.Store({
           return currentValue
         }
       })
+    },
+    SETSELECTEDITEMS(state,items){
+      state.selectedItems = items
+    },
+    SETITEMS(state,items){
+      state.items = items
     }
   },
   actions: {

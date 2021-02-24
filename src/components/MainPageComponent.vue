@@ -106,30 +106,32 @@ export default {
     async mounted() {
       let items = []
       const res = await firebase.firestore().collection('items').get()
-      res.forEach( doc => {
-            let item = doc.data()
-            const ref =  firebase.storage().refFromURL(item.url)
-            ref.getDownloadURL().then(thing => {
-              item.url = thing
-              const {code, mirror, description, images, innerHeight, innerWidth, material, name, outerHeight, outerWidth, price, url} = item
-              items.push({
-                code,
-                mirror,
-                description,
-                images,
-                innerHeight,
-                innerWidth,
-                material,
-                name,
-                outerHeight,
-                outerWidth,
-                price,
-                url
+      await res.forEach( doc => {
+              let item = doc.data()
+              const ref =  firebase.storage().refFromURL(item.url)
+              ref.getDownloadURL().then(thing => {
+                item.url = thing
+                const {code, mirror, description, images, innerHeight, innerWidth, material, name, outerHeight, outerWidth, price, url} = item
+                items.push({
+                  code,
+                  mirror,
+                  description,
+                  images,
+                  innerHeight,
+                  innerWidth,
+                  material,
+                  name,
+                  outerHeight,
+                  outerWidth,
+                  price,
+                  url
+                })
               })
-            })
-          }
-      )
+            }
+        )
       this.items = items
+      this.$store.commit('SETITEMS', items)
+      console.log()
     },
     data () {
       return{
@@ -161,34 +163,35 @@ export default {
   },
   computed:{
       filteredItems(){
-        let oldItems = this.items
-        let filteredArray = []
-        if(this.selected_inner_width.length){
-          filteredArray = oldItems.filter(item => this.selected_inner_width.includes(item.innerWidth))
-        }else{
-         filteredArray = oldItems
-        }
-
-        if(this.selected_outer_width.length){
-          filteredArray = filteredArray.filter(item => this.selected_outer_width.includes(item.outerWidth))
-        }
-
-        if(this.selected_inner_height.length){
-          filteredArray = filteredArray.filter(item => this.selected_inner_height.includes(item.innerHeight))
-        }
-
-        if(this.selected_outer_height.length){
-          filteredArray = filteredArray.filter(item => this.selected_outer_height.includes(item.outerHeight))
-        }
-
-        if(this.selected_materials.length){
-          filteredArray = filteredArray.filter(item => this.selected_materials.includes(item.material))
-        }
-
-        if(this.selected_mirror.length){
-          filteredArray = filteredArray.filter(item => this.selected_mirror.includes(item.mirror))
-        }
-        return filteredArray
+        // let oldItems = this.items
+        // let filteredArray = []
+        // if(this.selected_inner_width.length){
+        //   filteredArray = oldItems.filter(item => this.selected_inner_width.includes(item.innerWidth))
+        // }else{
+        //  filteredArray = oldItems
+        // }
+        //
+        // if(this.selected_outer_width.length){
+        //   filteredArray = filteredArray.filter(item => this.selected_outer_width.includes(item.outerWidth))
+        // }
+        //
+        // if(this.selected_inner_height.length){
+        //   filteredArray = filteredArray.filter(item => this.selected_inner_height.includes(item.innerHeight))
+        // }
+        //
+        // if(this.selected_outer_height.length){
+        //   filteredArray = filteredArray.filter(item => this.selected_outer_height.includes(item.outerHeight))
+        // }
+        //
+        // if(this.selected_materials.length){
+        //   filteredArray = filteredArray.filter(item => this.selected_materials.includes(item.material))
+        // }
+        //
+        // if(this.selected_mirror.length){
+        //   filteredArray = filteredArray.filter(item => this.selected_mirror.includes(item.mirror))
+        // }
+        // return filteredArray
+        return this.$store.state.selectedItems
       }
   }
 }

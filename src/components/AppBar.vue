@@ -9,12 +9,14 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="asset.png"
           transition="scale-transition"
           width="40"
       />
 
-      <h1 @click="redirect"> Lion Inc.</h1>
+     <a>
+       <h1 @click="redirect"> Lvov inc.</h1>
+     </a>
     </div>
 
     <v-spacer></v-spacer>
@@ -35,3 +37,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.v-application a {
+  color: white !important;
+}
+a{
+  color: white !important;
+  text-decoration-color: white !important
+}
+</style>

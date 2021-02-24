@@ -9,7 +9,7 @@
           v-bind="attrs"
           v-on="on"
       >
-        <span class="mr-2">Кто мы</span>
+        <span class="mr-2">О нас</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </template>
@@ -20,8 +20,11 @@
             dark
         >О нас</v-toolbar>
         <v-card-text class="card_text">
-          <div class="ma-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto autem consectetur cumque, deleniti deserunt dolor, eligendi error eum hic itaque labore minus necessitatibus nisi numquam provident quibusdam saepe temporibus vitae! </div>
-          <div class="ma-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto autem consectetur cumque, deleniti deserunt dolor, eligendi error eum hic itaque labore minus necessitatibus nisi numquam provident quibusdam saepe temporibus vitae!</div>
+          <div class="ma-4"> Наша компания занимается производством рамок на любой вкус, начиная от небольших фото-рам и заканчивая огромными зеркалами. Но так-же мы любим экспериментировать, поэтому нами и был создан этот проект. </div>
+          <div class="ma-4">Посетите наш инстаграм с самыми необычными работами компании: <a target="_blank" href="https://www.instagram.com/gene_lvov_frames/"> @gene_lvov_frames </a> </div>
+          <div class="ma-4 mb-0">Так-же вы всегда можете посетить наш офис по адресу:</div>
+          <div class="mr-4 ml-7"> г. Винница, ул. Данила Галицкого 53</div>
+          <div class="mr-4 ml-7">  49.229587295758776, 28.443609197610286</div>
         </v-card-text>
         <v-card-actions class="justify-end">
           <v-btn
@@ -37,5 +40,8 @@
 <style scoped>
 .card_text{
   font-size: 1rem;
+}
+.v-application a {
+  color: #1EA1F7 !important;
 }
 </style>

@@ -77,6 +77,7 @@ import 'firebase/storage'
 import {checkPrice} from "@/functions/price"
 export default {
   async mounted() {
+    //TODO не надо получать новые всегда можно брать их со стора
     let code = this.$route.path.replace('/','')
     const res = await firebase.firestore().collection('items').doc(code).get()
     let item = res.data()

@@ -3,13 +3,14 @@
   permanent
   class="nav d-flex"
   >
-        <div class="bg_blue mx-2">
+    <div v-show="false">{{filteredItems}} </div>
+        <div class="bg_blue mx-2 pl-5 pb-5">
           <div class="mt-3">
             <span class="mb-5">Ширина внешней стороны:</span>
           </div>
             <v-checkbox
                 style="max-height: 30px"
-                v-for="item in inner_Width"
+                v-for="item in inner_width"
                 :label="item"
                 v-model = "selected_inner_width"
                 :value = "item"
@@ -40,7 +41,7 @@
           </v-checkbox>
 
           <div class="mt-3">
-            <span>Высота внешней стороны стороны:</span>
+            <span>Высота внешней стороны:</span>
           </div>
           <v-checkbox
               style="max-height: 30px"
@@ -75,37 +76,85 @@
               :value="item"
           >
           </v-checkbox>
-
         </div>
   </v-navigation-drawer>
 </template>
 
 <script>
+import firebase from "firebase/app"
+import 'firebase/firestore'
 export default{
+  async mounted() {
+      const response = await firebase.firestore().collection('config').doc('sidebar').get()
+      const data = response.data()
+      console.log(data)
+      this.inner_height = data.inner_height
+      this.inner_width = data.inner_width
+      this.outer_height = data.outer_height
+      this.outer_width = data.outer_width
+      this.materials = data.materials
+  },
   data: function () {
     return {
 
       items : [],
 
-      inner_Width: ['17`','12`'],
+      inner_width: [],
       selected_inner_width: [],
 
-      outer_width: ['25`','55`'],
+      outer_width: [],
       selected_outer_width :[],
 
-      inner_height: ['25`',  '55`'],
+      inner_height: [],
       selected_inner_height :[],
 
-      outer_height: ['25`','55`'],
+      outer_height: [],
       selected_outer_height :[],
 
-      materials:['Дерево','Пластик'],
+      materials:[],
       selected_materials:[],
 
       mirror:[ 'Есть', 'Нет'],
       selected_mirror:[]
     }
   },
+  computed:{
+    filteredItems(){
+      let oldItems = this.$store.state.items
+      let filteredArray = []
+      if(this.selected_inner_width.length){
+        filteredArray = oldItems.filter(item => this.selected_inner_width.includes(item.innerWidth))
+      }else{
+        filteredArray = oldItems
+      }
+
+      if(this.selected_outer_width.length){
+        filteredArray = filteredArray.filter(item => this.selected_outer_width.includes(item.outerWidth))
+      }
+
+      if(this.selected_inner_height.length){
+        filteredArray = filteredArray.filter(item => this.selected_inner_height.includes(item.innerHeight))
+      }
+
+      if(this.selected_outer_height.length){
+        filteredArray = filteredArray.filter(item => this.selected_outer_height.includes(item.outerHeight))
+      }
+
+      if(this.selected_materials.length){
+        filteredArray = filteredArray.filter(item => this.selected_materials.includes(item.material))
+      }
+
+      if(this.selected_mirror.length){
+        filteredArray = filteredArray.filter(item => this.selected_mirror.includes(item.mirror))
+      }
+
+      console.log(filteredArray)
+
+      this.$store.commit('SETSELECTEDITEMS', filteredArray)
+
+      return filteredArray
+    }
+  }
 }
 </script>
 

@@ -14,8 +14,7 @@
               dark
               v-bind="attrs"
               v-on="on"
-              class="mx-2"
-              id="no_color"
+              class="mx-2 basket_btn"
               fab
               large
               outlined
@@ -155,5 +154,12 @@ export default {
   max-width: 20px !important;
   max-height: 20px !important;
   font-size: 12px;
+}
+.basket_btn{
+  background-color: #FFFFFF !important;
+  border-radius: 50%;
+}
+.v-btn:before {
+ background-color: #FFFFFF;
 }
 </style>
