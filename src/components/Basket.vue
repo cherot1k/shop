@@ -154,6 +154,7 @@ export default {
   max-width: 20px !important;
   max-height: 20px !important;
   font-size: 12px;
+  z-index: 2;
 }
 .basket_btn{
   background-color: #FFFFFF !important;

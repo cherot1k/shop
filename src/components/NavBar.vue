@@ -87,12 +87,15 @@ export default{
   async mounted() {
       const response = await firebase.firestore().collection('config').doc('sidebar').get()
       const data = response.data()
-      console.log(data)
       this.inner_height = data.inner_height
       this.inner_width = data.inner_width
       this.outer_height = data.outer_height
       this.outer_width = data.outer_width
       this.materials = data.materials
+
+    window.addEventListener('resize',()=>{
+      this.$store.state.nonMobile = window.innerWidth>1000
+    })
   },
   data: function () {
     return {
@@ -115,7 +118,8 @@ export default{
       selected_materials:[],
 
       mirror:[ 'Есть', 'Нет'],
-      selected_mirror:[]
+      selected_mirror:[],
+
     }
   },
   computed:{
@@ -148,12 +152,17 @@ export default{
         filteredArray = filteredArray.filter(item => this.selected_mirror.includes(item.mirror))
       }
 
-      console.log(filteredArray)
 
       this.$store.commit('SETSELECTEDITEMS', filteredArray)
 
       return filteredArray
+    },
+    nonMobile(){
+      return this.$store.state.nonMobile
     }
+  },
+  methods:{
+
   }
 }
 </script>

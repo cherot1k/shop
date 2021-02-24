@@ -88,7 +88,7 @@ export default {
     // }
   },
   async mounted() {
-    let res = await this.$store.commit('GETITEMBYCODE',this.currentItem.code)
+    let res = await this.$store.commit('GETBASKETITEMBYCODE',this.currentItem.code)
     this.val = res.howMany
   }
 

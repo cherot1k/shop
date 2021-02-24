@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import HelloWorld from './components/HelloWorld'
 import Basket from './components/Basket'
 import AppBar from './components/AppBar'
 export default {
@@ -26,8 +26,6 @@ export default {
         .then(data => {
           data.forEach(item => {
             if(item.ccy === "USD" && item.base_ccy === "UAH"){
-              this.usd = item.sale
-              console.log('Dollar:  ' + item.sale)
               this.$store.commit('SETDOLLAR',item.sale)
             }
           })

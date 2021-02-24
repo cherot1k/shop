@@ -9,7 +9,8 @@ export default new Vuex.Store({
     dollar: null,
     totalPrice: 0,
     items: [],
-    selectedItems:[]
+    selectedItems:[],
+    nonMobile:true
   },
   mutations: {
     ADDITEM(state,item) {
@@ -44,7 +45,7 @@ export default new Vuex.Store({
     CHANGETOTALPRICE(state,money){
       state.totalPrice += parseInt( money)
     },
-    GETITEMBYCODE(state,code){
+    GETBASKETITEMBYCODE(state, code){
       return  state.basket.reduce((accumulator, currentValue, currentIndex, array) => {
         if(accumulator.code === code){
           return accumulator
@@ -53,6 +54,7 @@ export default new Vuex.Store({
         }
       })
     },
+
     SETSELECTEDITEMS(state,items){
       state.selectedItems = items
     },
@@ -67,11 +69,12 @@ export default new Vuex.Store({
     },
     removeItem(ctx,item){
       ctx.commit('REMOVEITEM',item)
-    }
+    },
   },
   getters:{
     basket: s => s.basket,
-    totalPrice: s => s.totalPrice
+    totalPrice: s => s.totalPrice,
+    items: s => s.items
   },
   modules: {
   }

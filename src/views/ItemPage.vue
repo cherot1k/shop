@@ -77,10 +77,19 @@ import 'firebase/storage'
 import {checkPrice} from "@/functions/price"
 export default {
   async mounted() {
-    //TODO не надо получать новые всегда можно брать их со стора
     let code = this.$route.path.replace('/','')
-    const res = await firebase.firestore().collection('items').doc(code).get()
-    let item = res.data()
+    let item;
+      for ( let some of this.$store.getters.items){
+        if(some.code === code.toString()){
+          item = some
+        }
+      }
+    if(!item){
+      const res = await firebase.firestore().collection('items').doc(code).get()
+      item = res.data()
+      console.log('Downloaded by firebase')
+    }
+
     for( let one in item.images){
       item.images[one] = await firebase.storage().refFromURL(item.images[one]).getDownloadURL()
     }
