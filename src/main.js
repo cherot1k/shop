@@ -6,7 +6,7 @@ import store from './store'
 import vuetify from './plugins/vuetify';
 import '@/assets/fonts.css'
 import init from "@/firebase/firebase_init"
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 init()
 
 new Vue({
