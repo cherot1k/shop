@@ -1,6 +1,6 @@
 <template>
 <v-row class="ma-12 d-flex col-12" >
- <NavBar class="navbar" v-if="nonMobile" />
+  <NavBar class="navbar" v-if="nonMobile" />
 
     <div class="bg_red   col-8 mx-2">
       <v-row justify="center">
@@ -60,6 +60,7 @@ export default {
         )
         storedItems = items
         this.$store.commit('SETITEMS', storedItems)
+        this.$store.commit('SETSELECTEDITEMS',storedItems)
       }else {
         storedItems = this.$store.getters.items
       }

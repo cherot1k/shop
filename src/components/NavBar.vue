@@ -83,19 +83,38 @@
 <script>
 import firebase from "firebase/app"
 import 'firebase/firestore'
+import { mapState } from 'vuex'
 export default{
   async mounted() {
+    let needed_Object
+    const isInStore =  this.nav.inner_height.length
+    if(isInStore === 0){
       const response = await firebase.firestore().collection('config').doc('sidebar').get()
       const data = response.data()
-      this.inner_height = data.inner_height
-      this.inner_width = data.inner_width
-      this.outer_height = data.outer_height
-      this.outer_width = data.outer_width
-      this.materials = data.materials
+      const object = {
+        inner_height: data.inner_height,
+        inner_width: data.inner_width,
+        outer_height: data.outer_height,
+        outer_width: data.outer_width,
+        materials: data.materials
+      }
+      this.$store.commit('SETNAVSTATE',object)
+      needed_Object = object
+    }else{
+      needed_Object = this.nav
+    }
+    console.log(needed_Object)
+    this.inner_height = needed_Object.inner_height
+    this.inner_width = needed_Object.inner_width
+    this.outer_width = needed_Object.outer_width
+    this.outer_height = needed_Object.outer_height
+    this.materials = needed_Object.materials
+
 
     window.addEventListener('resize',()=>{
       this.$store.state.nonMobile = window.innerWidth>1000
     })
+    this.$store.state.nonMobile = window.innerWidth>1000
   },
   data: function () {
     return {
@@ -159,7 +178,10 @@ export default{
     },
     nonMobile(){
       return this.$store.state.nonMobile
-    }
+    },
+    ...mapState({
+      nav: state => state.navbar
+    })
   },
   methods:{
 

@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import nav from './modules/navbar'
 
 Vue.use(Vuex)
+
 
 export default new Vuex.Store({
   state: {
@@ -77,5 +79,6 @@ export default new Vuex.Store({
     items: s => s.items
   },
   modules: {
+    navbar: nav
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="about mt-12">
-    <v-container  class="cont " >
+    <v-container  class="cont " v-if="nonMobile">
       <v-divider></v-divider>
       <v-row class="col-12 d-inline-flex ma-4">
         <div class="col-5" >
@@ -67,6 +67,63 @@
       </v-row>
       <v-divider></v-divider>
     </v-container>
+
+
+
+    <v-container  class="" v-else>
+      <v-row class="col-12 d-inline-flex ma-4 mt-0">
+        <div class="col-12" >
+          <v-carousel >
+            <v-carousel-item
+                v-for="(item,i) in item.images"
+                :key="i"
+                :src="item"
+            ></v-carousel-item>
+          </v-carousel>
+        </div>
+        <div class="col-12" >
+          <v-row class="col-12" justify="start">
+            <h1>{{item.name}}</h1>
+            <v-row class="col-12 mt-5">
+              <v-row class="ml-2 col-12" >
+                <v-row class="needFont col-xs-7 col-sm-5 col-6 mr-4">
+                  <span style="font-size: 50px" >{{price}}</span>
+                  <span class="mt-5" style="font-size: 30px">₴</span>
+                </v-row>
+                <v-spacer/>
+                <v-row class="col-xs-6 col-sm-5 col-6" justify="center" align="center" >
+                  <v-btn class="buyBtn--mobile col-6" @click="addToBasket" large v-show="!isInBasket">
+                    <v-icon left>mdi-basket-plus</v-icon>
+                    <span class="cart--mobile"> В корзину </span>
+                  </v-btn>
+                  <v-btn class="disBtn--mobile col-6" disabled large v-show="isInBasket">
+                    <v-icon left>mdi-cart-check</v-icon>
+                    <span class="cart--mobile"> Товар в корзине </span>
+                  </v-btn>
+                </v-row>
+              </v-row>
+              <div class="col-12 mt-2">
+                <div class="description-text">{{item.description}}</div>
+              </div>
+              <div class="col-12">
+                <v-expansion-panels>
+                  <v-expansion-panel accordion>
+                    <v-expansion-panel-header>
+                      <div class=""> Доставка: </div>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      <div class="">Новая Почта</div>
+                      <div class="">Забрать из фирменного магазина</div>
+                      <div class="">Курьером до дома</div>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+                </v-expansion-panels>
+              </div>
+            </v-row>
+          </v-row>
+        </div>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -118,6 +175,9 @@ export default {
     },
     isInBasket(){
       return  this.$store.getters.basket.filter( item => item.code === this.item.code).length === 1
+    },
+    nonMobile(){
+      return this.$store.state.nonMobile
     }
   }
 }
@@ -127,6 +187,11 @@ export default {
 .cont{
   margin-top: 2% !important;
 }
+
+.cont--mobile{
+  margin-top: 2% !important;
+}
+
 .needFont{
   font-family: "WebServeroff", sans-serif !important;
   font-size: 1.25rem !important;
@@ -137,20 +202,42 @@ export default {
   font: 18px/30px WebServeroff;
   min-width: 150px !important;
 }
+
+.buyBtn--mobile{
+  font-weight: bold;
+  font: 10px WebServeroff;
+  min-width: 100px !important;
+}
+
 .disBtn{
   font-weight: bold;
   font: 18px/30px WebServeroff;
   min-width: 220px !important;
 }
+
+.disBtn--mobile{
+  font-weight: bold;
+  font: 10px WebServeroff;
+  min-width: 160px !important;
+}
+
 .cart{
   color: blue;
   font-family: "Comic Sans MS",serif;
   font-size: 1rem;
+}
+.cart--mobile{
+  color: blue;
+  font-family: "Comic Sans MS",serif;
+  font-size: 12px
 }
 ul{
   list-style: none;
 }
 .about{
   margin-top: 7% !important;
+}
+.description-text{
+  color: #3d3d3d!important;
 }
 </style>

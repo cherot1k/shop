@@ -69,7 +69,7 @@
                   <v-radio value="Самовывоз" @click="deliveryPrice = 59"></v-radio>
                   <span>Самовывоз из отделений новой почты</span>
                   <v-spacer/>
-                  <span> 59₴ </span>
+                  <span> ~59₴ </span>
                 </v-row>
                 <v-row class="col-12 ml-3 mt-3" v-show="selected === 'Самовывоз'">
                   <v-select
@@ -85,7 +85,7 @@
                 <v-row class="col-12">
                   <v-radio value="Доставка" @click="deliveryPrice = 69" ></v-radio> <span>Доставка</span>
                   <v-spacer/>
-                  <span> 69₴ </span>
+                  <span> ~69₴ </span>
                 </v-row>
                 <v-row class="col-12 mt-3" v-show="selected === 'Доставка'">
                   <v-form v-model="validDelivery" class="col-12 d-flex">
