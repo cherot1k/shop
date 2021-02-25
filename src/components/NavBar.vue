@@ -110,11 +110,6 @@ export default{
     this.outer_height = needed_Object.outer_height
     this.materials = needed_Object.materials
 
-
-    window.addEventListener('resize',()=>{
-      this.$store.state.nonMobile = window.innerWidth>1000
-    })
-    this.$store.state.nonMobile = window.innerWidth>1000
   },
   data: function () {
     return {

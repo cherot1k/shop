@@ -12,7 +12,7 @@ export default new Vuex.Store({
     totalPrice: 0,
     items: [],
     selectedItems:[],
-    nonMobile:true
+    nonMobile:false
   },
   mutations: {
     ADDITEM(state,item) {
@@ -62,6 +62,9 @@ export default new Vuex.Store({
     },
     SETITEMS(state,items){
       state.items = items
+    },
+    SETNONMOBILE(state,val){
+      state.nonMobile = val
     }
   },
   actions: {
@@ -76,7 +79,8 @@ export default new Vuex.Store({
   getters:{
     basket: s => s.basket,
     totalPrice: s => s.totalPrice,
-    items: s => s.items
+    items: s => s.items,
+    nonMobile: s => s.nonMobile
   },
   modules: {
     navbar: nav

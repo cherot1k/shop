@@ -22,7 +22,7 @@
               <div class="col-6 " >
                 <div class="needFont">
                   <span style="font-size: 70px" >{{price}}</span>
-                  <span style="font-size: 43px">₴</span>
+                  <span style="font-size: 43px">₴ {{this.$store.getters.nonMobile}}</span>
                 </div>
                 <div class="">Код товара: {{item.code}}</div>
                 <div class="mt-2 needFont">
@@ -61,7 +61,7 @@
             </v-row>
           </v-row>
           <v-row class="col-12 mt-2">
-            <div class="grey--text">{{item.description}}</div>
+            <div class="grey--text">{{item.description}}1</div>
           </v-row>
         </div>
       </v-row>
@@ -177,7 +177,7 @@ export default {
       return  this.$store.getters.basket.filter( item => item.code === this.item.code).length === 1
     },
     nonMobile(){
-      return this.$store.state.nonMobile
+      return this.$store.getters.nonMobile
     }
   }
 }

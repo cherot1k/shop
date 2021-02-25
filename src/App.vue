@@ -30,6 +30,10 @@ export default {
             }
           })
         })
+    window.addEventListener('resize',()=>{
+      this.$store.commit('SETNONMOBILE', window.innerWidth>1000)
+    })
+    this.$store.commit('SETNONMOBILE', window.innerWidth>1000)
   }
 
 };
