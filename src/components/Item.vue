@@ -1,26 +1,19 @@
 <template>
-  <v-row class="col-12 addBorder mr-5">
-    <v-btn
-        icon
-        dark
-        color="black"
-        @click="removeItem(currentItem.code)"
-        class="closeBtn"
-    >
-      <v-icon>mdi-close</v-icon>
-    </v-btn>
+  <v-row class="col-12 addBorder">
+
     <v-row class="col-12 ma-2">
       <v-img max-height="80px" max-width="80px" :src="currentItem.url"></v-img>
       <div class="mt-2 ml-2"> {{currentItem.name}} </div>
       <v-spacer/>
-<!--      <v-btn-->
-<!--          icon-->
-<!--          dark-->
-<!--          color="black"-->
-<!--          @click="removeItem(currentItem.code)"-->
-<!--      >-->
-<!--        <v-icon>mdi-close</v-icon>-->
-<!--      </v-btn>-->
+      <v-btn
+          icon
+          dark
+          color="black"
+          @click="removeItem(currentItem.code)"
+          style="position: sticky"
+      >
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </v-row>
     <v-row justify="end" class="col-12 ma-2">
 <!--      <v-btn icon @click.prevent="increment()">-->

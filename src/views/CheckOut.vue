@@ -48,7 +48,8 @@
           <v-row class="col-12" >
             <v-divider class="col-12"></v-divider>
           </v-row>
-          <v-row class="col-12 mx-auto items my-5" style="border: 1px solid black; border-radius: 20px " v-for="item in items">
+<!--          style="border: 1px solid black; border-radius: 20px "-->
+          <v-row class="col-12 mx-auto items my-5"  v-for="item in items">
             <CheckItem :item="item" />
           </v-row>
           <v-row class="col-12">
@@ -57,19 +58,18 @@
         </v-row>
       </v-row>
 
-      <v-row class="mt-1 col-12">
         <v-row class=" col-12 CoolFont">
           <h1> Доставка: </h1>
         </v-row>
-        <div class="col-12">
+<!--        <div class="col-12">-->
           <v-radio-group class="col-12" v-model="selected">
             <div class="col-12">
               <div class="col-12 addBorder my-4">
                 <v-row class="col-12">
                   <v-radio value="Самовывоз" @click="deliveryPrice = 59"></v-radio>
-                  <span>Самовывоз из отделений новой почты</span>
+                  <span class="mt-1" style="font-size: 13px">Самовывоз из отделений новой почты</span>
                   <v-spacer/>
-                  <span> ~59₴ </span>
+                  <span class="mt-1" style="font-size: 14px"> ~59₴ </span>
                 </v-row>
                 <div class="col-12 ml-3 mt-3" v-show="selected === 'Самовывоз'">
                   <v-select
@@ -83,9 +83,9 @@
               </div>
               <div class="col-12 addBorder my-4">
                 <v-row class="col-12">
-                  <v-radio value="Доставка" @click="deliveryPrice = 69" ></v-radio> <span>Доставка</span>
+                  <v-radio value="Доставка" @click="deliveryPrice = 69" ></v-radio> <span class="mt-1" style="font-size: 13px">Доставка курьером</span>
                   <v-spacer/>
-                  <span> ~69₴ </span>
+                  <span class="mt-1" style="font-size: 13px"> ~69₴ </span>
                 </v-row>
                 <v-row class="col-12 mt-3" v-show="selected === 'Доставка'">
                   <v-form v-model="validDelivery" class="col-12 d-flex">
@@ -99,8 +99,7 @@
               </div>
             </div>
           </v-radio-group>
-        </div>
-      </v-row>
+<!--        </div>-->
 
       <v-row class="col-12 check mx-auto">
         <div class="col-12" style="font-size: 28px">
