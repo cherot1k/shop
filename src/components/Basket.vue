@@ -40,21 +40,16 @@
         <v-divider class="col-12"/>
         <v-card-text>
           <v-container>
-            <v-row class="col-11 mx-auto mb-12">
+            <v-row class="col-12 mx-auto mb-12">
               <v-row class="item col-12 ma-2"  >
                 <Item class="col-12 my-3" v-for="item in array" :item="item" @render="rerender" :key="item.id"/>
               </v-row>
             </v-row>
-            <v-row class="col-12 groupButt mb-5" style="height: 70px">
-              <v-btn color="secondary" class="mt-3" @click="dialog = false"  small>Продолжить покупки</v-btn>
-              <v-spacer/>
-              <v-row class="col-6 d-flex butt" >
-                <div class="price mt-3" style="height: 60px">
-                  <span class="price">{{totalPrice}}</span>
-                  <span class="val"> ₴ </span>
-                </div>
-                <v-spacer/>
-                <v-btn  color="green" class="ml-5 mt-3" @click="redirect"> Оформить заказ  </v-btn>
+            <v-row class="col-12 mb-5" >
+              <v-row justify="center">
+                <v-btn rounded color="green" @click="redirect">
+                  Оформить заказ &#183; {{totalPrice}} ₴
+                </v-btn>
               </v-row>
             </v-row>
           </v-container>
@@ -84,7 +79,9 @@ export default {
     totalPrice(){
       return this.$store.getters.totalPrice
     },
-
+    nonMobile(){
+      return this.$store.getters.nonMobile
+    }
   },
   methods:{
     redirect(){
@@ -114,12 +111,9 @@ export default {
   z-index: 2;
 }
 .butt{
-  min-width: 200px;
+  min-width: 100px;
   border: 1px solid green;
   border-radius: 20px;
-}
-.price{
-  font: 50px Arial;
 }
 .val{
   font: 30px Arial;
@@ -162,5 +156,23 @@ export default {
 }
 .v-btn:before {
  background-color: #FFFFFF;
+}
+.sec_btn{
+  min-height: 55px;
+  max-width: 200px!important;
+}
+.order_span{
+  font-size: 30px;
+}
+@media screen and (max-width: 800px){
+  .order_span{
+    font-size: 14px;
+  }
+  .price{
+    font-size: 30px;
+  }
+  .val{
+    font-size: 20px;
+  }
 }
 </style>

@@ -106,6 +106,23 @@
                 <div class="description-text">{{item.description}}</div>
               </div>
               <div class="col-12">
+                <v-expansion-panels class="my-4">
+                  <v-expansion-panel accordion>
+                    <v-expansion-panel-header>
+                      <div class=""> Характеристики: </div>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      <ul class="needFont">
+                        <li>Высота внутренней стороны: {{item.outerHeight}}</li>
+                        <li>Высота внутренней стороны: {{item.innerHeight}}</li>
+                        <li>Ширина внутренней стороны: {{item.innerWidth}}</li>
+                        <li>Ширина внешней стороны: {{item.outerWidth}}</li>
+                        <li>Материал: {{item.material}}</li>
+                        <li>Зеркало: {{item.mirror}}</li>
+                      </ul>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+                </v-expansion-panels>
                 <v-expansion-panels>
                   <v-expansion-panel accordion>
                     <v-expansion-panel-header>

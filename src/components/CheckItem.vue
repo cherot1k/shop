@@ -1,24 +1,26 @@
 <template>
-  <div class="my-style col-12 d-flex">
-    <v-row class="col-2" justify="center">
-      <v-img class="col-12" max-height="70px" max-width="70px" :src="item.url"> </v-img>
+  <v-row class="my-style col-12 d-flex ml-6">
+    <v-row class="col-md-5 col-sm-12 mt-2 ">
+      <div class="justify-center mx-2" >
+        <v-img class="col-12" max-height="70px" max-width="70px" :src="item.url"> </v-img>
+      </div>
+      <div class="mt-3"> <a href="#" class="black--text"> {{item.name}} </a> </div>
     </v-row>
-    <div class="col-4"> <a href="#"> {{item.name}} </a> </div>
-    <v-row class="col-5 no_padd">
-      <v-row class="col-3 mr-3">
-        <div class="col-12">Цена</div>
-        <div class="col-12">{{price}}₴</div>
-      </v-row>
-      <v-row class="col-5">
-        <div class="col-12">Кол-во</div>
-        <div class="col-12">{{item.howMany}}</div>
-      </v-row>
-      <v-row class="col-3">
-        <div class="col-12">Сумма</div>
-        <div class="col-12" >{{price * item.howMany}}₴</div>
-      </v-row>
+    <v-row class="col-md-7 col-sm-12 no_padd" style="flex-direction: row">
+      <v-col class=" ma-2">
+        <div class="">Цена</div>
+        <div class="">{{price}}₴</div>
+      </v-col>
+      <v-col class=" ma-2">
+        <div class="">Кол-во</div>
+        <div class="">{{item.howMany}}</div>
+      </v-col>
+      <v-col class=" ma-2">
+        <div class="">Сумма</div>
+        <div class="">{{price * item.howMany}}₴</div>
+      </v-col>
     </v-row>
-  </div>
+  </v-row>
 </template>
 
 <script>
@@ -32,14 +34,6 @@ export default {
   },
   computed:{
     price(){
-      // let number = (this.item.price * this.$store.state.dollar)/100
-      // if(number - Math.trunc(number) < 0.5 && number - Math.trunc(number) !== 0){
-      //   return (Math.trunc(number) * 100 + 50)
-      // }else if(number - Math.trunc(number) > 0.5){
-      //   return (Math.trunc(number) * 100 + 100)
-      // }else{
-      //   return (number*100);
-      // }
       return checkPrice(this.item, this.$store.state.dollar)
     }
   }

@@ -7,28 +7,28 @@
       <v-form v-model="valid">
         <v-row class="ma-5 mt-12">
           <v-text-field
-              class="col-5 ma-2"
+              class="col-md-5 col-12 ma-2"
               label="Фамилия"
               outlined
               :rules="surnameRules"
               v-model="surname"
           ></v-text-field>
           <v-text-field
-              class="col-5 ma-2"
+              class="col-md-5 col-12 ma-2"
               label="Имя"
               outlined
               :rules="nameRules"
               v-model="name"
           ></v-text-field>
           <v-text-field
-              class="col-5 ma-2"
+              class="col-md-5 col-12 ma-2"
               label="Номер телефона"
               outlined
               :rules="phoneRules"
               v-model="phone"
           ></v-text-field>
           <v-autocomplete
-              class="col-5 ma-2"
+              class="col-md-5 col-12 ma-2"
               label="Город"
               outlined
               v-model="val"
@@ -48,7 +48,7 @@
           <v-row class="col-12" >
             <v-divider class="col-12"></v-divider>
           </v-row>
-          <v-row class="col-12 mr-12 items my-5" style="border: 1px solid black; border-radius: 20px " v-for="item in items">
+          <v-row class="col-12 mx-auto items my-5" style="border: 1px solid black; border-radius: 20px " v-for="item in items">
             <CheckItem :item="item" />
           </v-row>
           <v-row class="col-12">
@@ -61,17 +61,17 @@
         <v-row class=" col-12 CoolFont">
           <h1> Доставка: </h1>
         </v-row>
-        <v-row class="col-12">
+        <div class="col-12">
           <v-radio-group class="col-12" v-model="selected">
             <div class="col-12">
-              <v-row class="col-12 addBorder my-4">
+              <div class="col-12 addBorder my-4">
                 <v-row class="col-12">
                   <v-radio value="Самовывоз" @click="deliveryPrice = 59"></v-radio>
                   <span>Самовывоз из отделений новой почты</span>
                   <v-spacer/>
                   <span> ~59₴ </span>
                 </v-row>
-                <v-row class="col-12 ml-3 mt-3" v-show="selected === 'Самовывоз'">
+                <div class="col-12 ml-3 mt-3" v-show="selected === 'Самовывоз'">
                   <v-select
                       :items="buildsearch"
                       v-model="branch"
@@ -79,9 +79,9 @@
                       hide-details="true"
                       no-data-text="Сначала выберите город"
                   ></v-select>
-                </v-row>
-              </v-row>
-              <v-row class="col-12 addBorder my-4">
+                </div>
+              </div>
+              <div class="col-12 addBorder my-4">
                 <v-row class="col-12">
                   <v-radio value="Доставка" @click="deliveryPrice = 69" ></v-radio> <span>Доставка</span>
                   <v-spacer/>
@@ -89,33 +89,51 @@
                 </v-row>
                 <v-row class="col-12 mt-3" v-show="selected === 'Доставка'">
                   <v-form v-model="validDelivery" class="col-12 d-flex">
-                    <v-text-field outlined class="col-5 mx-2" label="Улица" v-model="street" :rules="allRules"></v-text-field>
-                    <v-text-field outlined class="col-3 mx-2" label="Дом" v-model="house" :rules="allRules"></v-text-field>
-                    <v-text-field outlined class="col-3 mx-2" label="Квартира" v-model="apartment" :rules="allRules"></v-text-field>
+                    <v-row class="col-12 d-flex">
+                      <v-text-field outlined class="col-lg-5 col-md-5 col-sm-12 col-12 mx-2" label="Улица" v-model="street" :rules="allRules"></v-text-field>
+                      <v-text-field outlined class="col-lg-3 col-md-3 col-sm-12 col-12 mx-2" label="Дом" v-model="house" :rules="allRules"></v-text-field>
+                      <v-text-field outlined class="col-lg-3 col-md-3 col-sm-12 col-12 mx-2" label="Квартира" v-model="apartment" :rules="allRules"></v-text-field>
+                    </v-row>
                   </v-form>
                 </v-row>
-              </v-row>
+              </div>
             </div>
           </v-radio-group>
-        </v-row>
+        </div>
       </v-row>
 
-      <v-row class="items col-12 addBorder my-5 mr-12"  >
-        <v-col class="col-8">
-          <h2>Итого:</h2>
-        </v-col>
-        <v-col class="col-4">
-          <v-row class="col-12"> Стоемость товаров: <span class="mx-3 money"> {{this.$store.getters.totalPrice}}₴ </span>  </v-row>
-          <v-row class="col-12"> Стоемость доставки: <span class="mx-3 money"> {{deliveryPrice}}₴ </span> </v-row>
-          <v-divider class="col-12"/>
-          <v-row class="col-12"> К оплате: <span class="mx-3 money"> {{this.$store.getters.totalPrice + deliveryPrice}}₴ </span> </v-row>
-        </v-col>
+      <v-row class="col-12 check mx-auto">
+        <div class="col-12" style="font-size: 28px">
+          Заказ:
+        </div>
+        <div class="col-12" style="font-size: 16px">
+          <v-row class="mx-8">
+            <span > Цена заказа:</span>
+            <v-spacer/>
+            <span> {{this.$store.getters.totalPrice}} ₴ </span>
+          </v-row>
+        </div>
+        <div class="col-12 mt-4" style="font-size: 16px">
+          <v-row class="mx-8">
+            <span > Цена доставки:</span>
+            <v-spacer/>
+            <span> ~{{deliveryPrice}} ₴ </span>
+          </v-row>
+        </div>
+        <div class="col-12 mt-4" style="font-size: 16px">
+          <v-row class="mx-8">
+            <span > Сумма к оплате: </span>
+            <v-spacer/>
+            <span> {{this.$store.getters.totalPrice + deliveryPrice}} ₴ </span>
+          </v-row>
+        </div>
+        <div class="col-12 mt-3">
+          <v-btn color="green" class="col-12">Заказ подтверждаю</v-btn>
+        </div>
+        <div class="col-12 mt-1">
+          <v-subheader>В ближашее время вам позвонят для подтверждения заказа</v-subheader>
+        </div>
       </v-row>
-
-      <v-row class="col-12" justify="center">
-        <v-btn color="green" large  class="col-3" @click="sendMail">Подтвердить заказ</v-btn>
-      </v-row>
-
 
       <v-snackbar
           v-model="snackbar"
@@ -348,5 +366,11 @@ export default {
 }
 .items{
   max-width: 1075px!important;
+}
+
+.check{
+  background-color: #EDEFF1;
+  margin-bottom: 100px;
+  border-radius: 40px;
 }
 </style>
