@@ -10,7 +10,7 @@
           dark
           color="black"
           @click="removeItem(currentItem.code)"
-          style="position: sticky"
+          class="exit_btn"
       >
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -107,5 +107,16 @@ export default {
 .closeBtn{
   position: absolute;
   right: 15%;
+}
+.exit_btn{
+  position: absolute;
+  right: 10%;
+}
+
+@media screen and (max-width:900px){
+   .exit_btn{
+     position: absolute;
+     right: 20%;
+   }
 }
 </style>
