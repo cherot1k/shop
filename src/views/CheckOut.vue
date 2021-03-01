@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <v-container>
-      <v-row class="mt-12 header">
+      <v-row class="mt-12 header ml-3">
         <h1>Оформление заказа:</h1>
       </v-row>
       <v-form v-model="valid">
@@ -67,9 +67,9 @@
               <div class="col-12 addBorder my-4">
                 <v-row class="col-12">
                   <v-radio value="Самовывоз" @click="deliveryPrice = 59"></v-radio>
-                  <span class="mt-1" style="font-size: 13px">Самовывоз из отделений новой почты</span>
+                  <span class="mt-1" style="font-size: 13px">Самовывоз из отделений НП</span>
                   <v-spacer/>
-                  <span class="mt-1" style="font-size: 14px"> ~59₴ </span>
+                  <span class="mt-1" style="font-size: 13px"> ~59₴ </span>
                 </v-row>
                 <div class="col-12 ml-3 mt-3" v-show="selected === 'Самовывоз'">
                   <v-select

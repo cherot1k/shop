@@ -41,9 +41,9 @@
         <v-card-text>
           <v-container>
             <v-row class="col-12 mx-auto mb-12">
-              <v-row class="item col-12 ma-2"  >
+<!--              <v-row class="item col-12 ma-2"  >-->
                 <Item class="col-12 my-3" v-for="item in array" :item="item" @render="rerender" :key="item.id"/>
-              </v-row>
+<!--              </v-row>-->
             </v-row>
             <v-row class="col-12 mb-5" >
               <v-row justify="center">
