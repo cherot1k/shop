@@ -1,7 +1,11 @@
 <template>
   <v-card
-      class="col-2 ma-3"
-      max-width="300"
+      class="col-12 my-5"
+      max-height="400px"
+      max-width="450px"
+      min-height="100px"
+      min-width="100px"
+      style="overflow: hidden"
   >
     <div @click="redirect(item.code)">
       <template slot="progress">
@@ -13,17 +17,19 @@
       </template>
 
       <v-img
-          height="200"
+          min-height="200px"
+          width="100%"
           :src=item.url
+          aspect-ratio="1.5"
       ></v-img>
 
-      <v-card-title>{{item.name}}</v-card-title>
+      <v-card-title style="font-size: 14px" >{{item.name}}</v-card-title>
 
-      <v-card-text>
+      <v-card-text class="mb-7">
         <div class="my-1 subtitle-1">
           {{price}}₴
         </div>
-        <div>{{item.description}}</div>
+        <div style="font-size: 12px"  v-if="!mobile_version">{{item.description}}</div>
       </v-card-text>
     </div>
   </v-card>
@@ -45,16 +51,17 @@ export default {
   },
   computed:{
     price(){
-      // let number = (this.item.price * this.$store.state.dollar)/100
-      // if(number - Math.trunc(number) < 0.5 && number - Math.trunc(number) !== 0){
-      //   return (Math.trunc(number) * 100 + 50)
-      // }else if(number - Math.trunc(number) > 0.5){
-      //   return (Math.trunc(number) * 100 + 100)
-      // }else{
-      //   return (number*100);
-      // }
       return checkPrice(this.item, this.$store.state.dollar)
+    },
+    mobile_version(){
+      return  !this.$store.getters.nonMobile
     }
   }
 }
 </script>
+
+<style scoped>
+.v-card__title{
+  padding: 10px 10px 0 !important;
+}
+</style>

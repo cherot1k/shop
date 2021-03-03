@@ -1,17 +1,18 @@
 <template>
-<v-row class="ma-12 d-flex col-12" >
-  <NavBar class="navbar" v-if="nonMobile" />
+<v-row>
+<!--      <NavBar class="navbar" v-if="mdAndHigher" />-->
+      <NavBar class="navbar" v-if="nonMobile" />
+      <v-row v-else justify="start" class="col-12 ma-5 mb-0"> <MobileFilterNavBar/>   </v-row>
 
-    <div class="bg_red   col-8 mx-2">
-      <v-row justify="center">
-        <div class="" v-for="item in filteredItems" :key="item.id">
+      <v-row class="col-sm-12 col-md-9 col-12" justify="center" v-if="filteredItems">
+        <div class="col-md-4 col-sm-6 col-6" v-for="item in filteredItems" :key="item.id">
           <HomeItem :item="item"></HomeItem>
         </div>
+        <v-row class="col-sm-12 col-md-8 col-12 mt-12" justify="center" v-show="filteredItems.length === 0">
+          <h1>На данный момент нет предметов </h1>
+        </v-row>
       </v-row>
-      <v-row class="col-12" justify="center" v-show="!filteredItems.length">
-        <h1>На данный момент нет предметов </h1>
-      </v-row>
-    </div>
+
 </v-row>
 </template>
 
@@ -21,10 +22,12 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
 import NavBar from "@/components/NavBar"
+import MobileFilterNavBar from "@/components/MobileFilterNavBar"
 
 export default {
     name: 'HelloWorld',
     components:{
+      MobileFilterNavBar,
       NavBar,
       HomeItem
     },
@@ -81,6 +84,9 @@ export default {
       filteredItems(){
         return this.$store.state.selectedItems
       },
+    // mdAndHigher(){
+    //     return this.$vuetify.breakpoint.mdAndUp
+    // },
     nonMobile(){
         return this.$store.state.nonMobile
     }
@@ -92,16 +98,6 @@ export default {
 .v-input--selection-controls{
   margin-top: 0 !important;
 }
-  .bg_blue{
-    top: 8%;
-    position: sticky;
-    border: 1px solid black;
-    border-radius: 20px;
-    overflow: hidden;
-    min-width: 200px;
-    z-index: 2;
-    max-height: 600px;
-  }
   .navbar{
     position: sticky !important;
     top: 10% !important;

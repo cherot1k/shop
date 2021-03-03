@@ -1,81 +1,107 @@
 <template>
   <v-navigation-drawer
   permanent
-  class="nav d-flex"
+  class="nav d-flex mt-4"
   >
     <div v-show="false">{{filteredItems}} </div>
         <div class="bg_blue mx-2 pl-5 pb-5">
-          <div class="mt-3">
-            <span class="mb-5">Ширина внешней стороны:</span>
-          </div>
-            <v-checkbox
-                style="max-height: 30px"
-                v-for="item in inner_width"
-                :label="item"
-                v-model = "selected_inner_width"
-                :value = "item"
-            ></v-checkbox>
 
-          <div class="mt-3">
-            <span>Ширина внутренней стороны:</span>
-          </div>
-          <v-checkbox
-            style="max-height: 30px"
-            v-for="item in outer_width"
-            :label="item"
-            v-model="selected_outer_width"
-            :value="item"
-          >
-          </v-checkbox>
+          <v-expansion-panels flat multiple>
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                Ширина внутренней стороны
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-checkbox
+                    style="max-height: 30px"
+                    v-for="item in inner_width"
+                    :label="item"
+                    v-model = "selected_inner_width"
+                    :value = "item"
+                ></v-checkbox>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
 
-          <div class="mt-3">
-            <span>Высота внутренней стороны:</span>
-          </div>
-          <v-checkbox
-              style="max-height: 30px"
-              v-for="item in inner_height"
-              :label="item"
-              v-model="selected_inner_height"
-              :value="item"
-          >
-          </v-checkbox>
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                Ширина внутренней стороны
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-checkbox
+                    style="max-height: 30px"
+                    v-for="item in outer_width"
+                    :label="item"
+                    v-model="selected_outer_width"
+                    :value="item"
+                >
+                </v-checkbox>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
 
-          <div class="mt-3">
-            <span>Высота внешней стороны:</span>
-          </div>
-          <v-checkbox
-              style="max-height: 30px"
-              v-for="item in outer_height"
-              :label="item"
-              v-model="selected_outer_height"
-              :value="item"
-          >
-          </v-checkbox>
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                Высота внутренней стороны
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-checkbox
+                    style="max-height: 30px"
+                    v-for="item in inner_height"
+                    :label="item"
+                    v-model="selected_inner_height"
+                    :value="item"
+                >
+                </v-checkbox>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
 
-          <div class="mt-3">
-            <span>Материал:</span>
-          </div>
-          <v-checkbox
-              style="max-height: 30px"
-              v-for="item in materials"
-              :label="item"
-              v-model="selected_materials"
-              :value="item"
-          >
-          </v-checkbox>
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                Высота внешней стороны
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-checkbox
+                    style="max-height: 30px"
+                    v-for="item in outer_height"
+                    :label="item"
+                    v-model="selected_outer_height"
+                    :value="item"
+                >
+                </v-checkbox>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
 
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                Материал
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-checkbox
+                    style="max-height: 30px"
+                    v-for="item in materials"
+                    :label="item"
+                    v-model="selected_materials"
+                    :value="item"
+                >
+                </v-checkbox>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
 
-          <div class="mt-3">
-            <span>Зеркало:</span>
-          </div>
-          <v-checkbox
-              style="max-height: 30px"
-              v-for="item in mirror"
-              :label="item"
-              v-model="selected_mirror"
-              :value="item"
-          >
-          </v-checkbox>
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                Зеркало
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-checkbox
+                    style="max-height: 30px"
+                    v-for="item in mirror"
+                    :label="item"
+                    v-model="selected_mirror"
+                    :value="item"
+                >
+                </v-checkbox>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </div>
   </v-navigation-drawer>
 </template>
@@ -103,7 +129,6 @@ export default{
     }else{
       needed_Object = this.nav
     }
-    console.log(needed_Object)
     this.inner_height = needed_Object.inner_height
     this.inner_width = needed_Object.inner_width
     this.outer_width = needed_Object.outer_width
@@ -178,9 +203,6 @@ export default{
       nav: state => state.navbar
     })
   },
-  methods:{
-
-  }
 }
 </script>
 
@@ -199,5 +221,6 @@ export default{
   overflow: hidden;
   min-width: 200px;
   z-index: 2;
+  font-size: 14px;
 }
 </style>
