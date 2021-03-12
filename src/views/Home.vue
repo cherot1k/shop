@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <div class="col-12 ma-4">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
-    </div>
+<!--    <div class="col-12 ma-4">-->
+        <MainPageComponent/>
+<!--    </div>-->
   </div>
 </template>
 
 <script>
-import HelloWorld from '../components/MainPageComponent.vue'
+import MainPageComponent from '../components/MainPageComponent.vue'
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
+    MainPageComponent,
   },
   async mounted() {
 

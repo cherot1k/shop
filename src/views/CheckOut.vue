@@ -127,7 +127,7 @@
           </v-row>
         </div>
         <div class="col-12 mt-3">
-          <v-btn color="green" class="col-12">Заказ подтверждаю</v-btn>
+          <v-btn color="green" class="col-12" @click="sendMail">Заказ подтверждаю</v-btn>
         </div>
         <div class="col-12 mt-1">
           <v-subheader>В ближашее время вам позвонят для подтверждения заказа</v-subheader>

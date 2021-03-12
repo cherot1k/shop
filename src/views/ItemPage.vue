@@ -70,8 +70,8 @@
 
 
 
-    <v-container  class="" v-else>
-      <v-row class="col-12 d-inline-flex ma-4 mt-0">
+    <div  class="col-12" v-else>
+      <v-row class="col-12 d-inline-flex mt-0" style="padding: 0; margin: 0">
         <div class="col-12" >
           <v-carousel >
             <v-carousel-item
@@ -140,7 +140,7 @@
           </v-row>
         </div>
       </v-row>
-    </v-container>
+    </div>
   </div>
 </template>
 

@@ -1,10 +1,14 @@
 <template>
   <v-app>
     <AppBar/>
-    <v-main>
-      <Basket/>
+    <v-content>
+<!--      <v-container fluid>-->
+        <Basket/>
+      <div class="">
         <router-view></router-view>
-    </v-main>
+      </div>
+<!--      </v-container>-->
+    </v-content>
   </v-app>
 </template>
 

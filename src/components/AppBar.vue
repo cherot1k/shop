@@ -1,8 +1,9 @@
 <template>
-  <v-app-bar
+  <v-toolbar
       app
       color="primary"
       dark
+      class="app_bar"
   >
     <div class="d-flex align-center">
       <v-img
@@ -20,9 +21,10 @@
     </div>
 
     <v-spacer></v-spacer>
-
-    <AboutUs/>
-  </v-app-bar>
+    <div class="">
+      <AboutUs/>
+    </div>
+  </v-toolbar>
 </template>
 <script>
 import AboutUs from '@/components/AboutUs'
@@ -39,6 +41,9 @@ export default {
 </script>
 
 <style>
+.app_bar{
+  width: 100%;
+}
 .v-application a {
   color: white !important;
 }

@@ -1,5 +1,5 @@
 <template>
-<v-row>
+<v-row style="margin: 0">
 <!--      <NavBar class="navbar" v-if="mdAndHigher" />-->
       <NavBar class="navbar" v-if="nonMobile" />
       <v-row v-else justify="start" class="col-12 ma-5 mb-0"> <MobileFilterNavBar/>   </v-row>
